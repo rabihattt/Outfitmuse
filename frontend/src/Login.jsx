@@ -3,7 +3,7 @@ import { useState } from "react";
 import HERO_IMAGE from "./assets/hero.png";
 import { EyeIcon, GoogleIcon, AppleIcon } from "./Icons";
 
-export default function Login({ onSwitch }) {
+export default function Login({ onSwitch, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -43,9 +43,8 @@ export default function Login({ onSwitch }) {
         JSON.stringify(data.user)
       );
 
-      alert("Login successful!");
-
-      // Dashboard navigation will be added next.
+      // Go to the dashboard
+      onLogin(data.user);
 
     } catch (err) {
       setError(err.message || "Something went wrong");
