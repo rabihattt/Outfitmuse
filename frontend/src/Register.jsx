@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Register_Image from "./assets/register.png";
 import { EyeIcon, GoogleIcon, AppleIcon } from "./Icons";
