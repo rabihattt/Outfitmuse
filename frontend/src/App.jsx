@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import StyleProfile from "./StyleProfile";
+import WardrobePreview from "./Wardrobe";
 
 const API_URL = "http://localhost:5000/api";
 
@@ -145,7 +146,36 @@ export default function App() {
             <Dashboard
                 user={user}
                 onLogout={handleUserLogout}
+                onOpenWardrobe={() => setPage("wardrobe")}
             />
+        );
+    }
+
+    // Wardrobe Preview
+    if (page === "wardrobe" && user) {
+        return (
+            <div className="min-h-screen bg-gray-50 p-6">
+                <div className="max-w-6xl mx-auto">
+
+                    <button
+                        onClick={() => setPage("userDashboard")}
+                        className="mb-6 px-5 py-2 rounded-lg bg-black text-white hover:bg-gray-800"
+                    >
+                        ← Back to Dashboard
+                    </button>
+
+                    <h1 className="text-3xl font-bold mb-2">
+                        My Wardrobe
+                    </h1>
+
+                    <p className="text-gray-500 mb-8">
+                        Your uploaded clothing collection
+                    </p>
+
+                    <WardrobePreview />
+
+                </div>
+            </div>
         );
     }
 
