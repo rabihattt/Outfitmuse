@@ -3,9 +3,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import styleProfileRoutes from "./routes/styleProfileRoutes.js";
+import wardrobeRoutes from "./routes/wardrobeRoutes.js";
 
 dotenv.config();
 
@@ -24,6 +26,9 @@ app.use("/api/admin", adminRoutes);
 // Style Profile Routes
 app.use("/api/style-profile", styleProfileRoutes);
 
+// Wardrobe Routes
+app.use("/api/wardrobe", wardrobeRoutes);
+
 // Test API
 app.get("/", (req, res) => {
     res.send("OutfitMuse Backend is Running!");
@@ -41,3 +46,4 @@ const startServer = async () => {
 };
 
 startServer();
+
