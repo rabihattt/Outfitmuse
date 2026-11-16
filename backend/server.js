@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import styleProfileRoutes from "./routes/styleProfileRoutes.js";
 
 dotenv.config();
 
@@ -19,6 +20,9 @@ app.use("/api/auth", authRoutes);
 
 // Admin Routes
 app.use("/api/admin", adminRoutes);
+
+// Style Profile Routes
+app.use("/api/style-profile", styleProfileRoutes);
 
 // Test API
 app.get("/", (req, res) => {
