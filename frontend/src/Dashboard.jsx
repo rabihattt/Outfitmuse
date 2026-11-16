@@ -23,7 +23,7 @@ export default function Dashboard({ user, onLogout }) {
 
       <main className="flex flex-1 flex-col items-center justify-center px-6 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Welcome to OutfitMuse
+          Thanks for trusting OutfitMuse. your style will be created.
         </h1>
 
         {user?.name && (

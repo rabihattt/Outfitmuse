@@ -1,11 +1,14 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
+import StyleProfile from "./StyleProfile";
+
+const API_URL = "http://localhost:5000/api";
 
 // Restore User Session
 const getStoredUser = () => {
@@ -41,11 +44,55 @@ export default function App() {
         }
 
         if (sessionStorage.getItem("token")) {
-            return "userDashboard";
+            return "checkingProfile";
         }
 
         return "login";
     });
+
+    // Check User Style Profile Status
+    const checkProfileStatus = async () => {
+        const token = sessionStorage.getItem("token");
+
+        try {
+            const response = await fetch(
+                `${API_URL}/style-profile/status`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to check profile status");
+            }
+
+            const data = await response.json();
+
+            setPage(
+                data.completed
+                    ? "userDashboard"
+                    : "styleProfile"
+            );
+
+        } catch (error) {
+            console.error("Profile status error:", error);
+            setPage("userDashboard");
+        }
+    };
+
+    // Restore User Profile Status on Page Refresh
+    useEffect(() => {
+        if (sessionStorage.getItem("adminToken")) {
+            return;
+        }
+
+        if (sessionStorage.getItem("token")) {
+            checkProfileStatus();
+        }
+    }, []);
 
     // User Logout
     const handleUserLogout = () => {
@@ -67,23 +114,28 @@ export default function App() {
 
     // Admin Login Success
     const handleAdminLogin = (loggedInAdmin) => {
-        // Clear any previous user session
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("user");
-        setUser(null);
 
+        setUser(null);
         setAdmin(loggedInAdmin);
         setPage("adminDashboard");
     };
 
     // User Login Success
-    const handleUserLogin = (loggedInUser) => {
-        // Clear any previous admin session
+    const handleUserLogin = async (loggedInUser) => {
         sessionStorage.removeItem("adminToken");
         sessionStorage.removeItem("admin");
-        setAdmin(null);
 
+        setAdmin(null);
         setUser(loggedInUser);
+        setPage("checkingProfile");
+
+        await checkProfileStatus();
+    };
+
+    // Style Profile Completion
+    const handleStyleProfileComplete = () => {
         setPage("userDashboard");
     };
 
@@ -94,6 +146,27 @@ export default function App() {
                 user={user}
                 onLogout={handleUserLogout}
             />
+        );
+    }
+
+    // Style Profile Questionnaire
+    if (page === "styleProfile" && user) {
+        return (
+            <StyleProfile
+                onComplete={handleStyleProfileComplete}
+                onLogout={handleUserLogout}
+            />
+        );
+    }
+
+    // Checking Profile Status
+    if (page === "checkingProfile") {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <p className="text-gray-600">
+                    Loading your profile...
+                </p>
+            </div>
         );
     }
 
