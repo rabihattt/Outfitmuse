@@ -1,21 +1,130 @@
-
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
+@layer base {
+  :root {
+    --color-warm-ivory: #F7F3EE;
+    --color-deep-plum: #452C3A;
+    --color-plum-hover: #57384A;
+    --color-plum-light: #6E495E;
+    --color-dusty-rose: #C58D91;
+    --color-rose-light: #F4E8E9;
+    --color-champagne: #DCCDBD;
+    --color-champagne-light: #F5EFEB;
+    --color-sage-green: #84917C;
+    --color-sage-light: #EDF1EC;
+    --color-charcoal: #292526;
+    --color-charcoal-muted: #686163;
+    --color-charcoal-light: #9B9496;
+    --color-border-subtle: #E8E0D7;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-warm-ivory);
+    color: var(--color-charcoal);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Editorial Serif Headers */
+  h1, h2, h3, .font-serif-editorial {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f7f5f0;
+::-webkit-scrollbar-track {
+  background: #F7F3EE;
 }
 
-button,
-input {
-  font: inherit;
+::-webkit-scrollbar-thumb {
+  background: #DCCDBD;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C58D91;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Glassmorphism & Luxury Cards */
+.glass-panel {
+  background: rgba(247, 243, 238, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 205, 189, 0.4);
+}
+
+.luxury-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D7;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  border-color: #DCCDBD;
+  box-shadow: 0 12px 32px -8px rgba(69, 44, 58, 0.08);
+  transform: translateY(-2px);
 }
