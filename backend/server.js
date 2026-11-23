@@ -8,6 +8,8 @@ import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import styleProfileRoutes from "./routes/styleProfileRoutes.js";
 import wardrobeRoutes from "./routes/wardrobeRoutes.js";
+import weatherRoutes from "./routes/weatherRoutes.js";
+import recommendationRoutes from "./routes/recommendationRoutes.js";
 
 dotenv.config();
 
@@ -28,6 +30,12 @@ app.use("/api/style-profile", styleProfileRoutes);
 
 // Wardrobe Routes
 app.use("/api/wardrobe", wardrobeRoutes);
+
+// Weather Routes
+app.use("/api/weather", weatherRoutes);
+
+// AI Recommendation Routes
+app.use("/api/recommendations", recommendationRoutes);
 
 // Test API
 app.get("/", (req, res) => {

@@ -27,6 +27,13 @@ const userSchema = new mongoose.Schema(
             type: String,
             enum: ["user", "admin"],
             default: "user"
+        },
+
+        preferredLocation: {
+            name: { type: String, default: "" },
+            lat: { type: Number, default: null },
+            lon: { type: Number, default: null },
+            country: { type: String, default: "" }
         }
     },
     {
